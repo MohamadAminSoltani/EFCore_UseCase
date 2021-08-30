@@ -9,6 +9,7 @@ namespace EFCore.Domain.ProductCategoryAgg
         ProductCategory Get(int id);
         void Create(ProductCategory productCategory);
         List<ProductCategoryViewModel> Search(string name);
+        EditProductCategory GetDetails(int id);
         bool Exists(string name);
         void SaveChanges();
     }

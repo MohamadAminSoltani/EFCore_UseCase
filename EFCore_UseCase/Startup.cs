@@ -1,6 +1,12 @@
+using EFCore.Application;
+using EFCore.Application.Contracts.ProductCategory;
+using EFCore.Domain.ProductCategoryAgg;
+using EFCore.Infrastructure.EFCore;
+using EFCore.Infrastructure.EFCore.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +29,11 @@ namespace EFCore_UseCase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
+            services.AddDbContext<EfContext>(x => x.UseSqlServer(Configuration.GetConnectionString("EFCoreProject")));
+
             services.AddRazorPages();
         }
 

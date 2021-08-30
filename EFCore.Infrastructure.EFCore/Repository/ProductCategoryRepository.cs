@@ -34,7 +34,7 @@ namespace EFCore.Infrastructure.EFCore.Repository
             var query = efContext.ProductCategories.Select(x => new ProductCategoryViewModel
             {
                 Id = x.Id,
-                Name = name,
+                Name = x.Name,
                 CreationDate = x.CreationDate.ToString()
             });
 
@@ -42,6 +42,14 @@ namespace EFCore.Infrastructure.EFCore.Repository
                 query = query.Where(x => x.Name.Contains(name));
 
             return query.OrderByDescending(x => x.Id).ToList();
+        }
+        public EditProductCategory GetDetails(int id)
+        {
+            return efContext.ProductCategories.Select(x => new EditProductCategory
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).FirstOrDefault(x=>x.Id == id);
         }
     }
 }
